@@ -19,9 +19,8 @@ h = sigmoid(X * theta);
 
 % Cost function
 J = -(1 / m) * (y' * log(h) + (1 - y)' * log(1 - h));
-fprintf('size of h %d * %d\n', size(h));
 
-% compute grandient
+% compute gradient
 grad = (1 / m) * X' * (h - y);
 
 end
