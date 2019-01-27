@@ -9,10 +9,10 @@ function [J, grad] = lrCostFunction(theta, X, y, lambda)
 m = length(y); % number of training examples
 
 % You need to return the following variables correctly 
-J = 0;
-grad = zeros(size(theta));
 
-% ====================== YOUR CODE HERE ======================
+n = size(theta);
+grad = zeros(n);
+
 % Instructions: Compute the cost of a particular choice of theta.
 %               You should set J to the cost.
 %               Compute the partial derivatives and set grad to the partial
@@ -36,17 +36,21 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+% sigmoid function
+h = sigmoid(X * theta);
 
+% means to explicitly exclude the bias term
 
+term = (lambda / (2 * m)) * (theta(2:n)' * theta(2:n));
 
+% Cost function
+J = -(1 / m) * (y' * log(h) + (1 - y)' * log(1 - h)) + term;
 
+% compute gradient
+% for j = 0
+grad(1) = (1 / m) * X(:, 1)' * (h - y);  
 
-
-
-
-
-% =============================================================
-
-grad = grad(:);
+% for j >0
+grad(2:n) = (1 / m) * X(:, 2:n)' * (h - y) + (lambda / m) * theta(2:n); 
 
 end
